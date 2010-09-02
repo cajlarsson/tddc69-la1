@@ -18,16 +18,26 @@ public class Room
         // Note that array indexes start at zero, but our direction
         // numbers start at one, thus you need to subtract one from
         // the direction parameter to get the corresponding array index.
+	doors[direction-1] = room;
+	
     }
     
+    public boolean hasDoor(int direction)
+    {
+	return (( direction < 5) && (direction > 0) && (doors[direction -1] != null) );
+    }
+
     public Room openDoor(int direction)
     {
         // Write code that returns the room for the door in the given 
         // direction.
+	
+	return doors[direction -1];
     }
     
     public void printDescription()
     {
-        // Write code that prints the name and description of the room.
+	Console.print(name);
+	Console.print(description);
     }
 }

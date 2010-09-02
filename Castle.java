@@ -1,6 +1,7 @@
 public class Castle 
 {
     private Room currentRoom;
+    private Room[] rooms;
 
     public Castle()
     {
@@ -14,7 +15,7 @@ public class Castle
         // Add your own rooms here! You should have at least five rooms.
         
         // Create room instances.
-
+	
         Room hallway = new Room(
                 "Hallway", 
                 "You are in the Hallway. There is mystery in the air.\n" +
@@ -36,10 +37,20 @@ public class Castle
         greatHall.setDoor(3, hallway); // South door goes to the Hallway
         eastTower.setDoor(4, hallway); // West door goes to the Hallway
 
+	rooms = new Room[5];
+	rooms[0] = hallway;
+	rooms[1] = eastTower;
+	rooms[2] = greatHall;
+	rooms[3] = greatHall;
+	rooms[4] = greatHall;
+	
+
         // Set the room to start in.
 
         this.currentRoom = hallway;
     }
+
+    
 
     public void playGame()
     {
@@ -51,8 +62,22 @@ public class Castle
         // to verify that the Castle class works. It won't allow
         // you to move around, but you will see the first room
         // when running the program.
+	currentRoom.printDescription();	
+	int input;
+	while (( input = Console.read())  != 0)
+	    {
+		if (currentRoom.hasDoor(input))
+		    {
+			currentRoom = currentRoom.openDoor(input);
+			currentRoom.printDescription();	
+		    }
+		else
+		    {
+			Console.print("There is no door there.");
+		    }
+	    }
 
-        this.currentRoom.printDescription();
+       
     }
 
     public static void main(String[] args)
