@@ -1,37 +1,43 @@
-import java.util.Random;
+import java.util.*;
 
 public class Room
 {
     private String name;
     private String description;
     private Room[] doors;
-    private LivingBeing[] beings;
-    private Random generator = new Random(System.currentTimeMillis()); 
-    public Room(String name, String description)
+    private ArrayList<LivingBeing> beings;
+    private Random generator;
+
+
+    public Room(String name, String description, int seed)
     {
         this.name = name;
         this.description = description;
         this.doors = new Room[4]; // Elements will be initialized to null.
-	beings = new LivingBeing[generator.nextInt(5)];
-	for (int i=0; i<beings.length; i++)
+
+	generator  = new Random(seed);
+
+	beings = new ArrayList<LivingBeing>();
+
+	for (int i=0; i <generator.nextInt(4) ; i++)
 	    {
 		int type = generator.nextInt(3);
 		switch (type)
 		    {
 		    case 0:
-			beings[i]=new Monkey(randomName());
+			beings.add( new Monkey(randomName()));
 		    break;
 		    case 1:
-			beings[i]=new Wizard(randomName());
+			beings.add( new Wizard(randomName()));
 		    break;
 		    case 2:
-			beings[i]=new Fairy(randomName());
+			beings.add( new Fairy(randomName()));
 		    break;
 		    }
-		
 	    }
-	
     }
+
+
     private String randomName()
     {
 	String[] names= {"Amber Tsunami","Axe Mysterybattler","Axe Spirittiger",
@@ -75,7 +81,7 @@ public class Room
 				 "Mist Violetguard","Saber Amber","Saber Ironeden",
 				 "Sheol Knightguard","Shroud Ghostveil","Sinner Honor",
 				 "Slayer Liongrief","Spirit Sheol","Talon Fauna",
-				 "Tempest Demonguard","Zeal Spiritgod"	};
+		                 "Tempest Demonguard","Zeal Spiritgod", "Ben Dover"};
 
 	return (names[generator.nextInt(names.length)]);
 	
@@ -88,32 +94,39 @@ public class Room
         // Note that array indexes start at zero, but our direction
         // numbers start at one, thus you need to subtract one from
         // the direction parameter to get the corresponding array index.
-	doors[direction-1] = room;
-	
+	doors[direction-1] = room;	
     }
     
     public boolean hasDoor(int direction)
     {
 	return (( direction < 5) && (direction > 0) && (doors[direction -1] != null) );
     }
-
+   
+    public ArrayList<LivingBeing> geifBeings()
+    {
+	ArrayList<LivingBeing> temp  = beings;
+	beings = new ArrayList<LivingBeing>();
+	return temp;
+    }
+    
+    public void addBeings(ArrayList<LivingBeing> newBeings )
+    {
+	beings.addAll(newBeings);
+    }
     public Room openDoor(int direction)
     {
         // Write code that returns the room for the door in the given 
         // direction.
-	
 	return doors[direction -1];
     }
     
     public void printDescription()
     {
-	
 	Console.print(name);
 	Console.print(description);
-	for (int i = 0 ; i < beings.length; i++)
+	for (int i = 0 ; i < beings.size(); i++)
 	    {
-		beings[i].sayHello();
+		beings.get(i).sayHello();
 	    }
-
     }
 }
