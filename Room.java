@@ -1,14 +1,84 @@
+import java.util.Random;
+
 public class Room
 {
     private String name;
     private String description;
     private Room[] doors;
-    
+    private LivingBeing[] beings;
+    private Random generator = new Random(System.currentTimeMillis()); 
     public Room(String name, String description)
     {
         this.name = name;
         this.description = description;
         this.doors = new Room[4]; // Elements will be initialized to null.
+	beings = new LivingBeing[generator.nextInt(5)];
+	for (int i=0; i<beings.length; i++)
+	    {
+		int type = generator.nextInt(3);
+		switch (type)
+		    {
+		    case 0:
+			beings[i]=new Monkey(randomName());
+		    break;
+		    case 1:
+			beings[i]=new Wizard(randomName());
+		    break;
+		    case 2:
+			beings[i]=new Fairy(randomName());
+		    break;
+		    }
+		
+	    }
+	
+    }
+    private String randomName()
+    {
+	String[] names= {"Amber Tsunami","Axe Mysterybattler","Axe Spirittiger",
+				 "Bedlam Zealot","Comet Gravebattler","Edge Spelldrake",
+				 "Gale Shadow","Gunner Jackalsong","Hawk Honorseeker",
+				 "Knight Royalfiend","Knight Seeker","Lightning Godheart",
+				 "Lightning Lancefiend","Maxim Ladymage","Melody Madcaster",
+				 "Mist Lightdemon","Quake Battler","Ragnarok Blizzard",
+				 "Rogue Light","Song Iconcaster","Star Storm",
+				 "Storm Steelseeker","Tsunami Roamer","Victory Magicnoble",
+				 "Warlock Ironangel","Albion Demonhawk","Bedlam Mourner",
+				 "Blood Bedlam","Clash Puritymourner","Dirk Honorjackal",
+				 "Drake Doom","Eden Talon","Ghost Roamer",
+				 "Grimoire Squall","Honor Bane","Ice Ghostmagus",
+				 "Katana Nemesislore","King Fellraven","King Grimtotem",
+				 "Melody Ghostseeker","Midnight Gustbattler","Midnight Rubyanchor",
+				 "Mist Madlaw","Rain Guardcaster","Rascal Magefauna",
+				 "Reaper Drakeanger","Rune Pandemonium","Spirit Mysterymourner",
+				 "Victor Victory","Warlock Madquake","Axe Knightclaw",
+				 "Bedlam Fiendfinder","Belladonna Gunner","Claymore Gust",
+				 "Cult Wolf","Dawn Magus","Dawn Violetmagus",
+				 "Eden Rogue","Eternity Tempestreaper","Flame Midnight",
+				 "Grief Zealotrage","Griffon Witchclaw","Grim Royal",
+				 "Honor Maverick","Jericho Royalsinner","Lightning Magicchanter",
+				 "Paradox Ivyhunter","Paradox Jackalreaper","Ragnarok Honor",
+				 "Rouge Mourner","Seeker Spiritcult","Shroud Nemesisheart",
+				 "Star Darkdread","Tempest Songcaster","Tempest Wanderlust",
+				 "Amber Ghosthawk","Arcane Albion","Claw Warslayer",
+				 "Cloud Rogue","Curse Tempestraven","Edge Roseknight",
+				 "Eternity Holygod","Fate Zealotchanter","Gale Victory",
+				 "Ice Tombguard","Katana Jackal","King Goldgrief",
+				 "Lightning Magefinder","Magus Wanderlust","Opera Ironghost",
+				 "Opera Sinnersoul","Ragnarok Grimoire","Rose Puritystar",
+				 "Ruby Tomemagus","Saber Strifeghost","Spirit Blacktempest",
+				 "Star Flameguard","Tiger Mistcomet","Victor Chaosreaper",
+				 "Zealot Magereaper","Albion Dire","Battler Goldveil",
+				 "Blood Brand","Cult Sephiroth","Dagger Amber",
+				 "Edge Totemghost","Fate Flora","Grave Seraphim",
+				 "Harmony Rogue","Jasmine Wisehowl","Katana Warlight",
+				 "Maxim Goldguard","Maxim Kingseeker","Maxim Shadow",
+				 "Mist Violetguard","Saber Amber","Saber Ironeden",
+				 "Sheol Knightguard","Shroud Ghostveil","Sinner Honor",
+				 "Slayer Liongrief","Spirit Sheol","Talon Fauna",
+				 "Tempest Demonguard","Zeal Spiritgod"	};
+
+	return (names[generator.nextInt(names.length)]);
+	
     }
     
     public void setDoor(int direction, Room room)
@@ -37,7 +107,13 @@ public class Room
     
     public void printDescription()
     {
+	
 	Console.print(name);
 	Console.print(description);
+	for (int i = 0 ; i < beings.length; i++)
+	    {
+		beings[i].sayHello();
+	    }
+
     }
 }
