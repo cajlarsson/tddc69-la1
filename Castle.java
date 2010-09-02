@@ -1,7 +1,10 @@
+import java.util.*;
+
 public class Castle 
 {
     private Room currentRoom;
-    private Room[] rooms;
+    //    private Room[] rooms;
+    private Collection<Room> rooms = new ArrayList<Room>
 
     public Castle()
     {
@@ -22,8 +25,8 @@ public class Castle
                 "To the right are dark stairs leading to the East Tower.\n" +
                 "In the front is a big door that leads to the Great Hall.");
         Room eastTower = new Room(
-                "Easy Tower", 
-                "You are in the Easy Tower. The view from here is magnificent.");
+                "East Tower", 
+                "You are in the East Tower. The view from here is magnificent.");
         Room greatHall = new Room(
                 "Great Hall", 
                 "This seems like a great place for a big party. There are all\n" +
@@ -37,12 +40,12 @@ public class Castle
         greatHall.setDoor(3, hallway); // South door goes to the Hallway
         eastTower.setDoor(4, hallway); // West door goes to the Hallway
 
-	rooms = new Room[5];
-	rooms[0] = hallway;
-	rooms[1] = eastTower;
-	rooms[2] = greatHall;
-	rooms[3] = greatHall;
-	rooms[4] = greatHall;
+	
+	rooms.add(hallway);
+	rooms.add(eastTower);
+	rooms.add(greatHall);
+    //	rooms[3] = greatHall;
+    //	rooms[4] = greatHall;
 	
 
         // Set the room to start in.
